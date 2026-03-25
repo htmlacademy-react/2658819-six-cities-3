@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Наталья](https://up.htmlacademy.ru/react-individual/3/user/2658819).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Сударев](https://htmlacademy.ru/profile/id1152185).
 
 ---
 
