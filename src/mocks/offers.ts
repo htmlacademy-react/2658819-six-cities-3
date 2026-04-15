@@ -25,6 +25,52 @@ export const offers: Offer[] = [
     previewImage: 'img/apartment-01.jpg'
   },
   {
+    id: '11',
+    title: 'Beautiful & luxurious studio at great location',
+    type: 'apartment',
+    price: 100,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10
+      }
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 3.8,
+    previewImage: 'img/apartment-02.jpg'
+  },
+  {
+    id: '22',
+    title: 'Beautiful & luxurious studio at great location',
+    type: 'apartment',
+    price: 90,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10
+      }
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 4.9,
+    previewImage: 'img/apartment-03.jpg'
+  },
+  {
     id: '2',
     title: 'Cozy room in the heart of Paris',
     type: 'room',

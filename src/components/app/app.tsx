@@ -4,26 +4,20 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
-import {Offer} from '../../types/offer';
-import {Review} from '../../types/review';
-import { fullOffers } from '../../mocks/full-offers';
+import {useAppSelector} from '../../hooks';
 
-type AppProps = {
-  offersCount: number;
-  offers: Offer[];
-  reviews: Review[];
-  authorizationStatus: AuthorizationStatus;
-}
+function App(): JSX.Element {
 
-function App({offersCount, offers, reviews, authorizationStatus}: AppProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainScreen offersCount={offersCount} offers={offers}/>}
+          element={<MainScreen/>}
         />
         <Route
           path={AppRoute.Login}
@@ -33,19 +27,14 @@ function App({offersCount, offers, reviews, authorizationStatus}: AppProps): JSX
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={authorizationStatus}>
-              <FavoritesScreen offers={offers}/>
+              <FavoritesScreen/>
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Offer}
           element={
-            <OfferScreen
-              offers={offers}
-              fullOffers={fullOffers}
-              reviews={reviews}
-              authorizationStatus={authorizationStatus}
-            />
+            <OfferScreen/>
           }
         />
         <Route

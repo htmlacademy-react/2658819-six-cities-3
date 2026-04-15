@@ -1,24 +1,22 @@
 import {Layout} from '../../components/layout/layout';
-import {Review} from '../../types/review';
 import {ReviewForm} from '../../components/review-form/review-form';
 import {ReviewList} from '../../components/review-list/review-list';
 import {PlaceCard} from '../../components/place-card/place-card';
 import {useParams} from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {AuthorizationStatus} from '../../const';
-import {Offer, FullOffer} from '../../types/offer';
 import {Map} from '../../components/map/map';
+import { fullOffers } from '../../mocks/full-offers';
+import { useAppSelector } from '../../hooks';
+import { reviews } from '../../mocks/reviews';
 
-type OfferScreenProps = {
-  reviews: Review[];
-  offers: Offer[];
-  fullOffers: FullOffer[];
-  authorizationStatus: AuthorizationStatus;
-}
 
-function OfferScreen({offers, fullOffers, reviews, authorizationStatus}: OfferScreenProps): JSX.Element {
+function OfferScreen(): JSX.Element {
 
   const {id} = useParams();
+
+  const offers = useAppSelector((state) => state.offers);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const currentOffer = fullOffers.find((item) => item.id === id);
 
@@ -28,6 +26,8 @@ function OfferScreen({offers, fullOffers, reviews, authorizationStatus}: OfferSc
 
   const city = currentOffer.city;
   const nearbyOffers = offers.filter((offer) => offer.id !== currentOffer.id).slice(0, 3);
+
+  const mapOffers = [...nearbyOffers, currentOffer];
 
   return (
     <Layout>
@@ -128,7 +128,7 @@ function OfferScreen({offers, fullOffers, reviews, authorizationStatus}: OfferSc
           <section className="offer__map map">
             <Map
               city={city}
-              offers={[...nearbyOffers, currentOffer]}
+              offers={mapOffers}
               selectedOffer={currentOffer}
               className="offer__map"
             />

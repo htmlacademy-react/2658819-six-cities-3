@@ -1,14 +1,11 @@
 import { Layout } from '../../components/layout/layout';
-import {Offer} from '../../types/offer';
 import {FavoritesList} from '../../components/favorites-list/favorites-list';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesScreenProps = {
-  offers: Offer[];
-};
 
-function FavoritsScreen({offers}: FavoritesScreenProps): JSX.Element {
-
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+function FavoritsScreen(): JSX.Element {
+  const allOffers = useAppSelector((state) => state.offers);
+  const favoriteOffers = allOffers.filter((offer) => offer.isFavorite);
 
   return (
     <Layout hasFooter extraClass={favoriteOffers.length === 0 ? 'page--favorites-empty' : ''}>

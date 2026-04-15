@@ -4,15 +4,24 @@ import {PlacesList} from '../../components/places-list/places-list';
 import { Map } from '../../components/map/map';
 import { useState } from 'react';
 import {CITIES} from '../../const';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { changeCity } from '../../store/action';
+import { Sorting } from '../../components/sorting/sorting';
+import { sortOffers } from '../../utils';
 
-type MainScreenProps = {
-  offersCount: number;
-  offers: Offer[];
-};
 
-function MainScreen({offersCount, offers}: MainScreenProps): JSX.Element {
+function MainScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
 
-  const city = offers[0].city;
+  const activeCityName = useAppSelector((state) => state.city);
+  const allOffers = useAppSelector((state) => state.offers);
+  const activeSortType = useAppSelector((state) => state.sortType);
+  const offers = allOffers.filter((offer) => offer.city.name === activeCityName);
+
+  const sortedOffers = sortOffers(offers, activeSortType);
+
+  const city = offers.length > 0 ? offers[0].city : allOffers[0].city;
+  const offersCount = offers.length;
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
 
@@ -36,10 +45,11 @@ function MainScreen({offersCount, offers}: MainScreenProps): JSX.Element {
               {CITIES.map((cityName) => (
                 <li key={cityName} className="locations__item">
                   <a
-                    className={`locations__item-link tabs__item ${cityName === 'Amsterdam' ? 'tabs__item--active' : ''}`}
+                    className={`locations__item-link tabs__item ${cityName === activeCityName ? 'tabs__item--active' : ''}`}
                     href="#"
                     onClick={(evt) => {
                       evt.preventDefault();
+                      dispatch(changeCity({city: cityName}));
                     }}
                   >
                     <span>{cityName}</span>
@@ -53,24 +63,12 @@ function MainScreen({offersCount, offers}: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"/>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
+              <b className="places__found">
+                {offersCount} {offersCount === 1 ? 'place' : 'places'} to stay in {activeCityName}
+              </b>
+              <Sorting />
               <PlacesList
-                offers={offers}
+                offers={sortedOffers}
                 onMouseEnter={handleCardMouseEnter}
                 onMouseLeave={handleCardMouseLeave}
               />
