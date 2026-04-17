@@ -48,7 +48,7 @@ export const offers: Offer[] = [
     previewImage: 'img/apartment-02.jpg'
   },
   {
-    id: '22',
+    id: '111',
     title: 'Beautiful & luxurious studio at great location',
     type: 'apartment',
     price: 90,
