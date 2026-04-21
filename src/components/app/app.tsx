@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import MainScreen from '../../pages/main-screen/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
@@ -8,10 +8,10 @@ import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../loading-screen/loading-screen';
+import HistoryRouter from '../history-router/history-router';
+import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
-
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
@@ -22,7 +22,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -35,7 +35,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
+            <PrivateRoute>
               <FavoritesScreen/>
             </PrivateRoute>
           }
@@ -51,7 +51,7 @@ function App(): JSX.Element {
           element={<NotFoundScreen/>}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
