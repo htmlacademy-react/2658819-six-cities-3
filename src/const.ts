@@ -59,3 +59,8 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
 }
+
+export enum StatusCodes {
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}
