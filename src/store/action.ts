@@ -13,3 +13,6 @@ export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersD
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
 export const redirectToRoute = createAction<AppRoute>('user/redirectToRoute');
+
+export const setUserEmail = createAction<string | null>('user/setUserEmail');
+

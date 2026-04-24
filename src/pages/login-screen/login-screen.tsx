@@ -1,9 +1,9 @@
-import { Layout } from '../../components/layout/layout';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { FormEvent, useRef } from 'react';
-import { useAppDispatch } from '../../hooks';
-import { loginAction } from '../../store/api-actions';
+import {Layout} from '../../components/layout/layout';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
+import {FormEvent, useRef} from 'react';
+import {useAppDispatch} from '../../hooks';
+import {loginAction} from '../../store/api-actions';
 
 function LoginScreen(): JSX.Element {
 
@@ -16,10 +16,14 @@ function LoginScreen(): JSX.Element {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
-      dispatch(loginAction({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      }));
+      const password = passwordRef.current.value;
+      const passwordPattern = /^(?=.*[a-z])(?=.*[0-9]).+$/i;
+      if (password.trim().length > 0 && passwordPattern.test(password)) {
+        dispatch(loginAction({
+          login: loginRef.current.value,
+          password: passwordRef.current.value,
+        }));
+      }
     }
   };
 
