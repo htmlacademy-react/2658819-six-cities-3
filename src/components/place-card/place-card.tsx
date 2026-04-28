@@ -6,7 +6,7 @@ type PlaceCardProps = {
   offer: Offer;
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
-  variant: 'cities' | 'favorites'; // Переключатель стилей
+  variant: 'cities' | 'favorites' | 'near-places'; // Переключатель стилей
 };
 
 export function PlaceCard({ offer, onMouseEnter, onMouseLeave, variant }: PlaceCardProps): JSX.Element {

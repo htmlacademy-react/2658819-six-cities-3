@@ -11,3 +11,9 @@ export type Review = {
   comment: string;
   rating: number;
 };
+
+export type ReviewData = {
+  id: string;
+  comment: string;
+  rating: number;
+};

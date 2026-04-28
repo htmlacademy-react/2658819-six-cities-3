@@ -1,12 +1,17 @@
-export const Setting = {
-  OffersCount: 312,
-} as const;
 
 export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
+  NotFound = '/404',
+}
+
+export enum APIRoute {
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout',
+  Comments = '/comments',
 }
 
 export enum AuthorizationStatus {
@@ -54,13 +59,9 @@ export const REQUEST_TIMEOUT = 5000;
 
 export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 
-export enum APIRoute {
-  Offers = '/offers',
-  Login = '/login',
-  Logout = '/logout',
-}
-
 export enum StatusCodes {
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
 }
+
+export const MAX_REVIEWS_COUNT = 10;

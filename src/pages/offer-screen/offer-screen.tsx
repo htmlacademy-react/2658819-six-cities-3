@@ -3,30 +3,37 @@ import {ReviewForm} from '../../components/review-form/review-form';
 import {ReviewList} from '../../components/review-list/review-list';
 import {PlaceCard} from '../../components/place-card/place-card';
 import {useParams} from 'react-router-dom';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {AuthorizationStatus} from '../../const';
 import {Map} from '../../components/map/map';
-import { fullOffers } from '../../mocks/full-offers';
-import { useAppSelector } from '../../hooks';
-import { reviews } from '../../mocks/reviews';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useEffect} from 'react';
+import { fetchOfferAction, fetchNearbyAction, fetchReviewsAction } from '../../store/api-actions';
+import LoadingScreen from '../login-screen/login-screen';
 
 
 function OfferScreen(): JSX.Element {
 
   const {id} = useParams();
+  const dispatch = useAppDispatch();
 
-  const offers = useAppSelector((state) => state.offers);
+  const currentOffer = useAppSelector((state) => state.offer);
+  const reviews = useAppSelector((state) => state.reviews);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  const currentOffer = fullOffers.find((item) => item.id === id);
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferAction(id));
+      dispatch(fetchNearbyAction(id));
+      dispatch(fetchReviewsAction(id));
+    }
+  }, [id, dispatch]);
 
   if (!currentOffer) {
-    return <NotFoundScreen/>;
+    return <LoadingScreen/>;
   }
 
   const city = currentOffer.city;
-  const nearbyOffers = offers.filter((offer) => offer.id !== currentOffer.id).slice(0, 3);
-
   const mapOffers = [...nearbyOffers, currentOffer];
 
   return (
@@ -60,10 +67,10 @@ function OfferScreen(): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: '80%'}}/>
+                  <span style={{width: `${Math.round(currentOffer.rating) * 20}%`}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">{currentOffer.rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
@@ -112,11 +119,9 @@ function OfferScreen(): JSX.Element {
                   )}
                 </div>
                 <div className="offer__description">
-                  {currentOffer.description.split('\n').map((line) => (
-                    <p key={line} className="offer__text">
-                      {line}
-                    </p>
-                  ))}
+                  <p className="offer__text">
+                    {currentOffer.description}
+                  </p>
                 </div>
               </div>
               <section className="offer__reviews reviews">
@@ -143,7 +148,7 @@ function OfferScreen(): JSX.Element {
                   <PlaceCard
                     key={nearOffer.id}
                     offer={nearOffer}
-                    variant="cities"
+                    variant="near-places"
                   />
                 ))}
               </div>

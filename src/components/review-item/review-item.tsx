@@ -29,7 +29,9 @@ export function ReviewItem({ review }: ReviewItemProps): JSX.Element {
           </div>
         </div>
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime={date}>{date}</time>
+        <time className="reviews__time" dateTime={date}>
+          {new Date(date).toLocaleString('en-US', { month: 'long', year: 'numeric' })}
+        </time>
       </div>
     </li>
   );

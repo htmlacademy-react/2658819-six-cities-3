@@ -10,6 +10,7 @@ import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../loading-screen/loading-screen';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
+import ErrorMessage from '../error-message/error-message';
 
 function App(): JSX.Element {
 
@@ -25,6 +26,7 @@ function App(): JSX.Element {
 
   return (
     <HistoryRouter history={browserHistory}>
+      <ErrorMessage />
       <Routes>
         <Route
           path={AppRoute.Main}
