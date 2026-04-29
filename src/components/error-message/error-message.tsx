@@ -14,7 +14,7 @@ function ErrorMessage(): JSX.Element | null {
         top: '30px',
         right: '30px',
         padding: '10px 20px',
-        backgroundColor: '#ff4b4b',
+        backgroundColor: '#ff9000',
         color: 'white',
         borderRadius: '8px',
         zIndex: 1000,

@@ -11,10 +11,21 @@ type PlaceCardProps = {
 
 export function PlaceCard({ offer, onMouseEnter, onMouseLeave, variant }: PlaceCardProps): JSX.Element {
 
+  let cardClass = 'cities__card';
+  let imageWrapperClass = 'cities__image-wrapper';
+
+  if (variant === 'favorites') {
+    cardClass = 'favorites__card';
+    imageWrapperClass = 'favorites__image-wrapper';
+  } else if (variant === 'near-places') {
+    cardClass = 'near-places__card';
+    imageWrapperClass = 'near-places__image-wrapper';
+  }
+
   const isFavorites = variant === 'favorites';
   return (
     <article
-      className={`${isFavorites ? 'favorites__card' : 'cities__card'} place-card`}
+      className={`${cardClass} place-card`}
       onMouseEnter={() => onMouseEnter?.(offer.id)}
       onMouseLeave={() => onMouseLeave?.()}
     >
@@ -23,7 +34,7 @@ export function PlaceCard({ offer, onMouseEnter, onMouseLeave, variant }: PlaceC
           <span>Premium</span>
         </div>
       )}
-      <div className={`${isFavorites ? 'favorites__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
+      <div className={`${imageWrapperClass} place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer.replace(':id', offer.id)}`}>
           <img
             className="place-card__image"

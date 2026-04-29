@@ -124,7 +124,11 @@ export const sendCommentAction = createAsyncThunk<void, ReviewData, {
   },
 );
 
-export const clearErrorAction = createAsyncThunk(
+export const clearErrorAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
   'data/clearError',
   (_arg, {dispatch}) => {
     setTimeout(

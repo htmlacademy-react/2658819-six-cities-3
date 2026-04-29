@@ -34,7 +34,8 @@ function OfferScreen(): JSX.Element {
   }
 
   const city = currentOffer.city;
-  const mapOffers = [...nearbyOffers, currentOffer];
+  const nearbyOffersToRender = nearbyOffers.slice(0, 3);
+  const mapOffers = [...nearbyOffersToRender, currentOffer];
 
   return (
     <Layout>
@@ -144,7 +145,7 @@ function OfferScreen(): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               <div className="near-places__list places__list">
-                {nearbyOffers.map((nearOffer) => (
+                {nearbyOffersToRender.map((nearOffer) => (
                   <PlaceCard
                     key={nearOffer.id}
                     offer={nearOffer}
