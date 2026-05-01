@@ -69,31 +69,33 @@ export function MainScreen(): JSX.Element {
           </section>
         </div>
         <div className="cities">
-          {isEmpty ? (
-            <MainEmpty city={activeCityName}/>
-          ) : (
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">
-                {offersCount} {offersCount === 1 ? 'place' : 'places'} to stay in {activeCityName}
-              </b>
-              <Sorting/>
-              <PlacesList
-                offers={sortedOffers}
-                onMouseEnter={handleCardMouseEnter}
-                onMouseLeave={handleCardMouseLeave}
-              />
-            </section>
-          )}
-          <div className={`cities__right-section ${isEmpty ? 'cities__right-section--empty' : ''}`}>
-            {!isEmpty && (
-              <Map
-                city={city}
-                offers={offers}
-                selectedOffer={selectedOffer}
-                className="cities__map"
-              />
+          <div className="cities__places-container container">
+            {isEmpty ? (
+              <MainEmpty city={activeCityName}/>
+            ) : (
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">
+                  {offersCount} {offersCount === 1 ? 'place' : 'places'} to stay in {activeCityName}
+                </b>
+                <Sorting/>
+                <PlacesList
+                  offers={sortedOffers}
+                  onMouseEnter={handleCardMouseEnter}
+                  onMouseLeave={handleCardMouseLeave}
+                />
+              </section>
             )}
+            <div className={`cities__right-section ${isEmpty ? 'cities__right-section--empty' : ''}`}>
+              {!isEmpty && (
+                <Map
+                  city={city}
+                  offers={offers}
+                  selectedOffer={selectedOffer}
+                  className="cities__map"
+                />
+              )}
+            </div>
           </div>
         </div>
       </main>

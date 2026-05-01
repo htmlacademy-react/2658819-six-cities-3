@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {DataProcess} from '../../types/state';
-import {fetchOffersAction, fetchOfferAction, fetchNearbyOffersAction, fetchReviewsAction, sendCommentAction, fetchFavoriteAction, setFavoriteStatusAction} from '../api-actions';
+import {fetchOffersAction, fetchOfferAction, fetchNearbyOffersAction, fetchReviewsAction, sendCommentAction, fetchFavoriteAction, setFavoriteStatusAction, logoutAction} from '../api-actions';
 
 
 const initialState: DataProcess = {
@@ -48,6 +48,15 @@ export const dataProcess = createSlice({
       })
       .addCase(fetchFavoriteAction.fulfilled, (state, action) => {
         state.favorites = action.payload;
+
+        state.offers = state.offers.map((offer) => {
+          const isFavorite = action.payload.some((favoriteOffer) => favoriteOffer.id === offer.id);
+          return { ...offer, isFavorite };
+        });
+        state.nearbyOffers = state.nearbyOffers.map((nearbyOffer) => {
+          const isFavorite = action.payload.some((favoriteOffer) => favoriteOffer.id === nearbyOffer.id);
+          return { ...nearbyOffer, isFavorite };
+        });
       })
       .addCase(setFavoriteStatusAction.fulfilled, (state, action) => {
         const updatedOffer = action.payload;
@@ -56,17 +65,22 @@ export const dataProcess = createSlice({
           offer.id === updatedOffer.id ? updatedOffer : offer
         );
 
+        state.nearbyOffers = state.nearbyOffers.map((nearbyOffer) =>
+          nearbyOffer.id === updatedOffer.id ? updatedOffer : nearbyOffer
+        );
+
         if (updatedOffer.isFavorite) {
-          // Если добавили в избранное — пушим в массив favorites
           state.favorites.push(updatedOffer);
         } else {
-          // Если удалили — фильтруем массив favorites, убирая этот отель
           state.favorites = state.favorites.filter((offer) => offer.id !== updatedOffer.id);
         }
 
         if (state.offer && state.offer.id === updatedOffer.id) {
           state.offer.isFavorite = updatedOffer.isFavorite;
         }
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.favorites = [];
       });
   }
 });
