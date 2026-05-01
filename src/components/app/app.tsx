@@ -1,21 +1,23 @@
 import {Routes, Route} from 'react-router-dom';
-import MainScreen from '../../pages/main-screen/main-screen';
-import LoginScreen from '../../pages/login-screen/login-screen';
-import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
-import OfferScreen from '../../pages/offer-screen/offer-screen';
-import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import {MainScreen} from '../../pages/main-screen/main-screen';
+import {LoginScreen} from '../../pages/login-screen/login-screen';
+import {FavoritesScreen} from '../../pages/favorites-screen/favorites-screen';
+import {OfferScreen} from '../../pages/offer-screen/offer-screen';
+import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import PrivateRoute from '../private-route/private-route';
+import {PrivateRoute} from '../private-route/private-route';
 import {useAppSelector} from '../../hooks';
-import LoadingScreen from '../loading-screen/loading-screen';
-import HistoryRouter from '../history-router/history-router';
+import {LoadingScreen} from '../loading-screen/loading-screen';
+import {HistoryRouter} from '../history-router/history-router';
 import browserHistory from '../../browser-history';
-import ErrorMessage from '../error-message/error-message';
+import {ErrorMessage} from '../error-message/error-message';
+import {getOffersDataLoadingStatus} from '../../store/data-process/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
-function App(): JSX.Element {
+export function App(): JSX.Element {
 
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
 
   if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
@@ -59,4 +61,3 @@ function App(): JSX.Element {
   );
 }
 
-export default App;

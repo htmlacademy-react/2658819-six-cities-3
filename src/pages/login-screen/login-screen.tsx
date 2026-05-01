@@ -5,7 +5,7 @@ import {FormEvent, useRef} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 
-function LoginScreen(): JSX.Element {
+export function LoginScreen(): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -76,5 +76,3 @@ function LoginScreen(): JSX.Element {
     </Layout>
   );
 }
-
-export default LoginScreen;

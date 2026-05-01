@@ -12,6 +12,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
+  Favorite = '/favorite',
 }
 
 export enum AuthorizationStatus {
@@ -65,3 +66,9 @@ export enum StatusCodes {
 }
 
 export const MAX_REVIEWS_COUNT = 10;
+
+export enum NameSpace {
+  Data = 'DATA',
+  User = 'USER',
+  Process = 'PROCESS',
+}

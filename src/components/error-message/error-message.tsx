@@ -1,7 +1,8 @@
 import {useAppSelector} from '../../hooks';
+import { getErrorStatus } from '../../store/data-process/selectors';
 
-function ErrorMessage(): JSX.Element | null {
-  const error = useAppSelector((state) => state.error);
+export function ErrorMessage(): JSX.Element | null {
+  const error = useAppSelector(getErrorStatus);
 
   if (!error) {
     return null;
@@ -26,4 +27,3 @@ function ErrorMessage(): JSX.Element | null {
   );
 }
 
-export default ErrorMessage;

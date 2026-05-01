@@ -2,6 +2,8 @@ import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
+import {getAuthorizationStatus, getUserEmail} from '../../store/user-process/selectors';
+import { getFavoriteCount } from '../../store/data-process/selectors';
 
 type HeaderProps = {
   hasNavigation?: boolean;
@@ -9,10 +11,11 @@ type HeaderProps = {
 
 export function Header({hasNavigation = true}: HeaderProps): JSX.Element {
 
-  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userEmail = useAppSelector(getUserEmail);
+  const favoriteCount = useAppSelector(getFavoriteCount);
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const userEmail = useAppSelector((state) => state.userEmail);
+  const dispatch = useAppDispatch();
 
   return (
     <header className="header">
@@ -38,7 +41,7 @@ export function Header({hasNavigation = true}: HeaderProps): JSX.Element {
                       <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                         <div className="header__avatar-wrapper user__avatar-wrapper"/>
                         <span className="header__user-name user__name">{userEmail}</span>
-                        <span className="header__favorite-count">3</span>
+                        <span className="header__favorite-count">{favoriteCount}</span>
                       </Link>
                     </li>
                     <li className="header__nav-item">

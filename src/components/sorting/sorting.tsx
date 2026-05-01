@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { SortType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeSortType } from '../../store/action';
+import { changeSorting } from '../../store/app-process/app-process';
+import {getSortingType} from '../../store/app-process/selectors';
 
 export function Sorting(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
-  const activeSortType = useAppSelector((state) => state.sortType);
+  const activeSortType = useAppSelector(getSortingType);
   const dispatch = useAppDispatch();
 
   return (
@@ -28,7 +29,7 @@ export function Sorting(): JSX.Element {
             className={`places__option ${type === activeSortType ? 'places__option--active' : ''}`}
             tabIndex={0}
             onClick={() => {
-              dispatch(changeSortType({ type }));
+              dispatch(changeSorting({ sortingType: type }));
               setIsOpen(false);
             }}
           >
