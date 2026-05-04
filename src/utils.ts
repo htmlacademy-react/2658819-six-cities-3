@@ -10,6 +10,6 @@ export const sortOffers = (offers: Offer[], type: SortType): Offer[] => {
     case SortType.TopRated:
       return [...offers].sort((a, b) => b.rating - a.rating);
     default:
-      return [...offers]; // Всегда возвращаем копию
+      return [...offers];
   }
 };
