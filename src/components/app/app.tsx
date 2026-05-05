@@ -6,6 +6,7 @@ import {OfferScreen} from '../../pages/offer-screen/offer-screen';
 import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {PrivateRoute} from '../private-route/private-route';
+import {PublicRoute} from '../public-route/public-route';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {LoadingScreen} from '../loading-screen/loading-screen';
 import {HistoryRouter} from '../history-router/history-router';
@@ -47,7 +48,11 @@ export function App(): JSX.Element {
         />
         <Route
           path={AppRoute.Login}
-          element={<LoginScreen/>}
+          element={
+            <PublicRoute>
+              <LoginScreen />
+            </PublicRoute>
+          }
         />
         <Route
           path={AppRoute.Favorites}

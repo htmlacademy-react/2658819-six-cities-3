@@ -143,5 +143,7 @@ export enum NameSpace {
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 
+export const PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[0-9]).+$/i;
+
 export const MAP_TILE_LAYER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const MAP_COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
