@@ -1,6 +1,6 @@
 import {Layout} from '../../components/layout/layout';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, PASSWORD_PATTERN} from '../../const';
 import {FormEvent, useRef} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
@@ -12,13 +12,12 @@ export function LoginScreen(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
       const password = passwordRef.current.value;
-      const passwordPattern = /^(?=.*[a-z])(?=.*[0-9]).+$/i;
-      if (password.trim().length > 0 && passwordPattern.test(password)) {
+      if (password.trim().length > 0 && PASSWORD_PATTERN.test(password)) {
         dispatch(loginAction({
           login: loginRef.current.value,
           password: passwordRef.current.value,
@@ -37,7 +36,7 @@ export function LoginScreen(): JSX.Element {
               className="login__form form"
               action="#"
               method="post"
-              onSubmit={handleSubmit}
+              onSubmit={handleFormSubmit}
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
