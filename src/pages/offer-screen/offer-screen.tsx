@@ -10,8 +10,9 @@ import {
   FavoriteStatus,
   MAX_NEARBY_OFFERS_COUNT,
   MAX_OFFER_IMAGE_COUNT,
-  HostAvatarSize,
-  BookmarkSize
+  HOST_AVATAR_SIZE,
+  BOOKMARK_SIZE,
+  APARTMENT_TYPES
 } from '../../const';
 import {Map} from '../../components/map/map';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -89,9 +90,11 @@ export function OfferScreen(): JSX.Element {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <div className="offer__mark">
-                <span>Premium</span>
-              </div>
+              {currentOffer.isPremium && (
+                <div className="offer__mark">
+                  <span>Premium</span>
+                </div>
+              )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
                   {currentOffer.title}
@@ -103,8 +106,8 @@ export function OfferScreen(): JSX.Element {
                 >
                   <svg
                     className="offer__bookmark-icon"
-                    width={BookmarkSize.Offer.Width}
-                    height={BookmarkSize.Offer.Height}
+                    width={BOOKMARK_SIZE.Offer.Width}
+                    height={BOOKMARK_SIZE.Offer.Height}
                   >
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -120,13 +123,13 @@ export function OfferScreen(): JSX.Element {
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {currentOffer.type}
+                  {APARTMENT_TYPES[currentOffer.type]}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {currentOffer.bedrooms} Bedrooms
+                  {currentOffer.bedrooms} {currentOffer.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {currentOffer.maxAdults} adults
+                  Max {currentOffer.maxAdults} {currentOffer.maxAdults === 1 ? 'adult' : 'adults'}
                 </li>
               </ul>
               <div className="offer__price">
@@ -152,8 +155,8 @@ export function OfferScreen(): JSX.Element {
                     <img
                       className="offer__avatar user__avatar"
                       src={currentOffer.host.avatarUrl}
-                      width={HostAvatarSize.Width}
-                      height={HostAvatarSize.Height}
+                      width={HOST_AVATAR_SIZE.Width}
+                      height={HOST_AVATAR_SIZE.Height}
                       alt="Host avatar"
                     />
                   </div>
@@ -190,7 +193,6 @@ export function OfferScreen(): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            {/*<div className="near-places__list places__list">*/}
             <div className="near-places__list places__list">
               {nearbyOffersToRender.map((nearOffer) => (
                 <PlaceCard
@@ -200,7 +202,6 @@ export function OfferScreen(): JSX.Element {
                 />
               ))}
             </div>
-            {/*</div>*/}
           </section>
         </div>
       </main>

@@ -1,5 +1,5 @@
 import {useState, ChangeEvent, Fragment, FormEvent} from 'react';
-import {ReviewSymbolLength, ratingMap, RATINGS, StarSize} from '../../const.ts';
+import {REVIEW_SYMBOL_LENGTH, RATING_MAP, RATINGS, STAR_SIZE} from '../../const.ts';
 import {useParams} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks';
 import {sendCommentAction} from '../../store/api-actions';
@@ -17,14 +17,14 @@ export function ReviewForm(): JSX.Element {
   });
 
   const handleFieldChange = (evt: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    const { name, value } = evt.target;
-    setFormData({ ...formData, [name]: value });
+    const {name, value} = evt.target;
+    setFormData({...formData, [name]: value});
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (id && formData.rating !== 0 && formData.review.length >= ReviewSymbolLength.Min) {
+    if (id && formData.rating !== 0 && formData.review.length >= REVIEW_SYMBOL_LENGTH.Min) {
       setIsSending(true);
 
       dispatch(sendCommentAction({
@@ -34,7 +34,7 @@ export function ReviewForm(): JSX.Element {
       }))
         .unwrap()
         .then(() => {
-          setFormData({ review: '', rating: 0 });
+          setFormData({review: '', rating: 0});
         })
         .catch(() => {
         })
@@ -66,9 +66,9 @@ export function ReviewForm(): JSX.Element {
             <label
               htmlFor={`${score}-stars`}
               className="reviews__rating-label form__rating-label"
-              title={ratingMap[score.toString() as keyof typeof ratingMap]}
+              title={RATING_MAP[score.toString() as keyof typeof RATING_MAP]}
             >
-              <svg className="form__star-image" width={StarSize.Width} height={StarSize.Height}>
+              <svg className="form__star-image" width={STAR_SIZE.Width} height={STAR_SIZE.Height}>
                 <use xlinkHref="#icon-star"/>
               </svg>
             </label>
@@ -87,7 +87,7 @@ export function ReviewForm(): JSX.Element {
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay
-          with at least <b className="reviews__text-amount">{ReviewSymbolLength.Min} characters</b>.
+          with at least <b className="reviews__text-amount">{REVIEW_SYMBOL_LENGTH.Min} characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"
@@ -95,8 +95,8 @@ export function ReviewForm(): JSX.Element {
           disabled={
             isSending ||
             Number(formData.rating) === 0 ||
-            formData.review.length < ReviewSymbolLength.Min ||
-            formData.review.length > ReviewSymbolLength.Max
+            formData.review.length < REVIEW_SYMBOL_LENGTH.Min ||
+            formData.review.length > REVIEW_SYMBOL_LENGTH.Max
           }
         >
           Submit

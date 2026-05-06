@@ -1,5 +1,5 @@
 import axios, {AxiosInstance, InternalAxiosRequestConfig, AxiosError} from 'axios';
-import {BACKEND_URL, REQUEST_TIMEOUT, StatusCodes} from '../const';
+import {BACKEND_URL, REQUEST_TIMEOUT, StatusCode} from '../const';
 import {getToken} from './token';
 import {processErrorHandle} from './process-error-handle';
 import {ErrorResponseData} from '../types/error';
@@ -26,15 +26,13 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<ErrorResponseData>) => {
       if (error.response) {
-        const status = error.response.status as StatusCodes;
+        const status = error.response.status as StatusCode;
         const {data} = error.response;
         const shouldShowError = (
-          status === StatusCodes.BAD_REQUEST ||
-          status === StatusCodes.CONFLICT ||
-          (status !== StatusCodes.UNAUTHORIZED && status !== StatusCodes.NOT_FOUND)
+          status === StatusCode.BadRequest ||
+          status === StatusCode.Conflict ||
+          (status !== StatusCode.Unauthorized && status !== StatusCode.NotFound)
         );
-          // status !== StatusCodes.UNAUTHORIZED &&
-          // status !== StatusCodes.NOT_FOUND;
         if (shouldShowError && data) {
           processErrorHandle(data.message);
         }

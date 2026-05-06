@@ -9,7 +9,7 @@ import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {saveToken, dropToken} from '../services/token';
 import {Review, ReviewData} from '../types/review';
-import { FavoriteStatusData } from '../types/favorite-data';
+import {FavoriteStatusData} from '../types/favorite-data';
 
 export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;

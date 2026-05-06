@@ -1,15 +1,16 @@
-import {Link} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus, LogoSize} from '../../const';
+import {Link, useLocation} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus, LOGO_SIZE} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
 import {getAuthorizationStatus, getUserEmail} from '../../store/user-process/selectors';
-import { getFavoriteCount } from '../../store/data-process/selectors';
+import {getFavoriteCount} from '../../store/data-process/selectors';
 
 type HeaderProps = {
   hasNavigation?: boolean;
 };
 
 export function Header({hasNavigation = true}: HeaderProps): JSX.Element {
+  const {pathname} = useLocation();
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const userEmail = useAppSelector(getUserEmail);
@@ -22,18 +23,23 @@ export function Header({hasNavigation = true}: HeaderProps): JSX.Element {
     dispatch(logoutAction());
   };
 
+  const isMainPage = pathname === (AppRoute.Main as string);
+
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link className="header__logo-link header__logo-link--active" to={AppRoute.Main}>
+            <Link
+              className={`header__logo-link ${isMainPage ? 'header__logo-link--active' : ''}`}
+              to={AppRoute.Main}
+            >
               <img
                 className="header__logo"
                 src="/img/logo.svg"
                 alt="6 cities logo"
-                width={LogoSize.Header.Width}
-                height={LogoSize.Header.Height}
+                width={LOGO_SIZE.Header.Width}
+                height={LOGO_SIZE.Header.Height}
               />
             </Link>
           </div>

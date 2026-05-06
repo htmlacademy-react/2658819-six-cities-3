@@ -1,9 +1,17 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { Offer } from '../../types/offer';
-import { AppRoute, AuthorizationStatus, RATING_COEFFICIENT, FavoriteStatus, ImageSize, BookmarkSize } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setFavoriteStatusAction } from '../../store/api-actions';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import {Link, useNavigate} from 'react-router-dom';
+import {Offer} from '../../types/offer';
+import {
+  AppRoute,
+  AuthorizationStatus,
+  RATING_COEFFICIENT,
+  FavoriteStatus,
+  IMAGE_SIZE,
+  BOOKMARK_SIZE,
+  APARTMENT_TYPES
+} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {setFavoriteStatusAction} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 
 type PlaceCardProps = {
@@ -13,7 +21,7 @@ type PlaceCardProps = {
   variant: 'cities' | 'favorites' | 'near-places';
 };
 
-export function PlaceCard({ offer, onMouseEnter, onMouseLeave, variant }: PlaceCardProps): JSX.Element {
+export function PlaceCard({offer, onMouseEnter, onMouseLeave, variant}: PlaceCardProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const authStatus = useAppSelector(getAuthorizationStatus);
@@ -58,8 +66,8 @@ export function PlaceCard({ offer, onMouseEnter, onMouseLeave, variant }: PlaceC
           <img
             className="place-card__image"
             src={offer.previewImage}
-            width={isFavorites ? ImageSize.Favorite.Width : ImageSize.Standard.Width}
-            height={isFavorites ? ImageSize.Favorite.Height : ImageSize.Standard.Height}
+            width={isFavorites ? IMAGE_SIZE.Favorite.Width : IMAGE_SIZE.Standard.Width}
+            height={isFavorites ? IMAGE_SIZE.Favorite.Height : IMAGE_SIZE.Standard.Height}
             alt={offer.title}
           />
         </Link>
@@ -75,7 +83,11 @@ export function PlaceCard({ offer, onMouseEnter, onMouseLeave, variant }: PlaceC
             type="button"
             onClick={handleBookmarkClick}
           >
-            <svg className="place-card__bookmark-icon" width={BookmarkSize.Card.Width} height={BookmarkSize.Card.Height}>
+            <svg
+              className="place-card__bookmark-icon"
+              width={BOOKMARK_SIZE.Card.Width}
+              height={BOOKMARK_SIZE.Card.Height}
+            >
               <use xlinkHref="#icon-bookmark"/>
             </svg>
             <span className="visually-hidden">{offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
@@ -90,7 +102,7 @@ export function PlaceCard({ offer, onMouseEnter, onMouseLeave, variant }: PlaceC
         <h2 className="place-card__name">
           <Link to={AppRoute.Offer.replace(':id', offer.id)}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{APARTMENT_TYPES[offer.type]}</p>
       </div>
     </article>
   );

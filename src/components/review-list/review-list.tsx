@@ -21,7 +21,7 @@ export function ReviewList({reviews}: ReviewListProps): JSX.Element {
 
       <ul className="reviews__list">
         {sortedReviews.map((review) => (
-          <ReviewItem key={review.id} review={review} />
+          <ReviewItem key={review.id} review={review}/>
         ))}
       </ul>
     </>

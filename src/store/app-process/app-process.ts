@@ -11,10 +11,10 @@ export const appProcess = createSlice({
   name: NameSpace.Process,
   initialState,
   reducers: {
-    changeCity: (state, action: PayloadAction<{city: string}>) => {
+    changeCity: (state, action: PayloadAction<{ city: string }>) => {
       state.city = action.payload.city;
     },
-    changeSorting: (state, action: PayloadAction<{sortingType: SortType}>) => {
+    changeSorting: (state, action: PayloadAction<{ sortingType: SortType }>) => {
       state.sortingType = action.payload.sortingType;
     },
   },
