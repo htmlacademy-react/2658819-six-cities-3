@@ -1,9 +1,12 @@
 import {Layout} from '../../components/layout/layout';
 import {Link} from 'react-router-dom';
-import {AppRoute, PASSWORD_PATTERN} from '../../const';
+import {AppRoute, PASSWORD_PATTERN, CITIES} from '../../const';
 import {FormEvent, useRef} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
+import {changeCity} from '../../store/app-process/app-process';
+
+const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
 
 export function LoginScreen(): JSX.Element {
 
@@ -24,6 +27,10 @@ export function LoginScreen(): JSX.Element {
         }));
       }
     }
+  };
+
+  const handleCityClick = () => {
+    dispatch(changeCity({city: randomCity}));
   };
 
   return (
@@ -65,8 +72,12 @@ export function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Main}>
-                <span>Amsterdam</span>
+              <Link
+                className="locations__item-link"
+                to={AppRoute.Main}
+                onClick={handleCityClick}
+              >
+                <span>{randomCity}</span>
               </Link>
             </div>
           </section>

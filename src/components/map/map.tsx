@@ -3,7 +3,7 @@ import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useMap} from '../../hooks/use-map';
 import {City, Offer, FullOffer} from '../../types/offer';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, MarkerSize, MIN_MAP_HEIGHT} from '../../const';
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, MARKER_SIZE, MIN_MAP_HEIGHT} from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
@@ -15,17 +15,17 @@ type MapProps = {
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [MarkerSize.Width, MarkerSize.Height],
-  iconAnchor: [MarkerSize.AnchorWidth, MarkerSize.AnchorHeight]
+  iconSize: [MARKER_SIZE.Width, MARKER_SIZE.Height],
+  iconAnchor: [MARKER_SIZE.AnchorWidth, MARKER_SIZE.AnchorHeight]
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: URL_MARKER_CURRENT,
-  iconSize: [MarkerSize.Width, MarkerSize.Height],
-  iconAnchor: [MarkerSize.AnchorWidth, MarkerSize.AnchorHeight]
+  iconSize: [MARKER_SIZE.Width, MARKER_SIZE.Height],
+  iconAnchor: [MARKER_SIZE.AnchorWidth, MARKER_SIZE.AnchorHeight]
 });
 
-export function Map({city, offers, selectedOffer, className }: MapProps): JSX.Element {
+export function Map({city, offers, selectedOffer, className}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 

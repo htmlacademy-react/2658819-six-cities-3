@@ -12,13 +12,13 @@ export function PrivateRoute({children}: PrivateRouteProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown) {
-    return <LoadingScreen />;
+    return <LoadingScreen/>;
   }
 
   return (
     authorizationStatus === AuthorizationStatus.Auth
       ? children
-      : <Navigate to={AppRoute.Login} />
+      : <Navigate to={AppRoute.Login}/>
   );
 }
 

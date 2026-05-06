@@ -12,12 +12,12 @@ export function PublicRoute({children}: PublicRouteProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown) {
-    return <LoadingScreen />;
+    return <LoadingScreen/>;
   }
 
   return (
     authorizationStatus === AuthorizationStatus.Auth
-      ? <Navigate to={AppRoute.Main} />
+      ? <Navigate to={AppRoute.Main}/>
       : children
   );
 }

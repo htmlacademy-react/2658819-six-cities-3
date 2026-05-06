@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { SortType } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeSorting } from '../../store/app-process/app-process';
+import {useState} from 'react';
+import {SortType} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {changeSorting} from '../../store/app-process/app-process';
 import {getSortingType} from '../../store/app-process/selectors';
 
 export function Sorting(): JSX.Element {
@@ -14,7 +14,7 @@ export function Sorting(): JSX.Element {
   };
 
   const handleSortItemClick = (type: SortType) => {
-    dispatch(changeSorting({ sortingType: type }));
+    dispatch(changeSorting({sortingType: type}));
     setIsOpen(false);
   };
 

@@ -1,5 +1,5 @@
 import {useAppSelector} from '../../hooks';
-import { getErrorStatus } from '../../store/data-process/selectors';
+import {getErrorStatus} from '../../store/data-process/selectors';
 
 export function ErrorMessage(): JSX.Element | null {
   const error = useAppSelector(getErrorStatus);

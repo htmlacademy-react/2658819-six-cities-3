@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { Header } from '../header/header';
-import { Footer } from '../footer/footer';
+import {ReactNode} from 'react';
+import {Header} from '../header/header';
+import {Footer} from '../footer/footer';
 
 type LayoutProps = {
   children: ReactNode;
@@ -9,10 +9,10 @@ type LayoutProps = {
   extraClass?: string;
 };
 
-export function Layout({ children, hasFooter = false, extraClass = '', hasNavigation = true }: LayoutProps): JSX.Element {
+export function Layout({children, hasFooter = false, extraClass = '', hasNavigation = true}: LayoutProps): JSX.Element {
   return (
     <div className={`page ${extraClass}`}>
-      <Header hasNavigation={hasNavigation} />
+      <Header hasNavigation={hasNavigation}/>
       {children}
       {hasFooter && <Footer/>}
     </div>

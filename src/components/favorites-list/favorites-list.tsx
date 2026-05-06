@@ -1,13 +1,13 @@
-import { Offer } from '../../types/offer';
-import { PlaceCard } from '../place-card/place-card';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import {Offer} from '../../types/offer';
+import {PlaceCard} from '../place-card/place-card';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 type FavoritesListProps = {
   offers: Offer[];
 };
 
-export function FavoritesList({ offers }: FavoritesListProps): JSX.Element {
+export function FavoritesList({offers}: FavoritesListProps): JSX.Element {
 
   const favoriteCities = Array.from(new Set(offers.map((offer) => offer.city.name)));
 

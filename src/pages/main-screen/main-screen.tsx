@@ -8,7 +8,7 @@ import {useAppSelector, useAppDispatch} from '../../hooks';
 import {changeCity} from '../../store/app-process/app-process';
 import {Sorting} from '../../components/sorting/sorting';
 import {sortOffers} from '../../utils';
-import {getOffers} from '../../store/data-process/selectors';
+import {getOffers, getOffersDataLoadingStatus, getOfferErrorStatus} from '../../store/data-process/selectors';
 import {getCity, getSortingType} from '../../store/app-process/selectors';
 import {LoadingScreen} from '../../components/loading-screen/loading-screen';
 import {MainEmpty} from '../../components/main-empty/main-empty';
@@ -20,15 +20,30 @@ export function MainScreen(): JSX.Element {
   const activeCityName = useAppSelector(getCity);
   const allOffers = useAppSelector(getOffers);
   const activeSortType = useAppSelector(getSortingType);
+
+  const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
+  const hasError = useAppSelector(getOfferErrorStatus);
+
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
 
-  if (allOffers.length === 0) {
+  if (isOffersDataLoading) {
     return <LoadingScreen/>;
+  }
+  if (hasError) {
+    return (
+      <Layout>
+        <div className="container">
+          <h1 style={{marginTop: '50px', textAlign: 'center'}}>
+            Server is unavailable. Please try again later.
+          </h1>
+        </div>
+      </Layout>
+    );
   }
 
   const handleCityClick = (event: React.MouseEvent<HTMLAnchorElement>, cityName: string) => {
     event.preventDefault();
-    dispatch(changeCity({ city: cityName }));
+    dispatch(changeCity({city: cityName}));
   };
   const offers = allOffers.filter((offer) => offer.city.name === activeCityName);
   const sortedOffers = sortOffers(offers, activeSortType);

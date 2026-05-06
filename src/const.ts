@@ -1,4 +1,3 @@
-
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -28,17 +27,17 @@ export enum FavoriteStatus {
   Remove = 0,
 }
 
-export const UserAvatarSize = {
+export const USER_AVATAR_SIZE = {
   Width: 54,
   Height: 54,
 } as const;
 
-export const HostAvatarSize = {
+export const HOST_AVATAR_SIZE = {
   Width: 74,
   Height: 74,
 } as const;
 
-export const LogoSize = {
+export const LOGO_SIZE = {
   Header: {
     Width: 81,
     Height: 41,
@@ -49,7 +48,7 @@ export const LogoSize = {
   },
 } as const;
 
-export const ImageSize = {
+export const IMAGE_SIZE = {
   Standard: {
     Width: 260,
     Height: 200,
@@ -60,7 +59,7 @@ export const ImageSize = {
   },
 } as const;
 
-export const BookmarkSize = {
+export const BOOKMARK_SIZE = {
   Card: {
     Width: 18,
     Height: 19,
@@ -71,19 +70,19 @@ export const BookmarkSize = {
   },
 } as const;
 
-export const ReviewSymbolLength = {
+export const REVIEW_SYMBOL_LENGTH = {
   Min: 50,
   Max: 300,
 } as const;
 
-export const StarSize = {
+export const STAR_SIZE = {
   Width: 37,
   Height: 33,
 } as const;
 
 export const RATINGS = [5, 4, 3, 2, 1];
 
-export const ratingMap = {
+export const RATING_MAP = {
   '5': 'perfect',
   '4': 'good',
   '3': 'not bad',
@@ -93,7 +92,7 @@ export const ratingMap = {
 
 export const URL_MARKER_DEFAULT = '/img/pin.svg';
 export const URL_MARKER_CURRENT = '/img/pin-active.svg';
-export const MarkerSize = {
+export const MARKER_SIZE = {
   Width: 27,
   Height: 39,
   AnchorWidth: 13.5,
@@ -122,11 +121,11 @@ export const REQUEST_TIMEOUT = 5000;
 
 export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 
-export enum StatusCodes {
-  BAD_REQUEST = 400,
-  UNAUTHORIZED = 401,
-  NOT_FOUND = 404,
-  CONFLICT = 409,
+export enum StatusCode {
+  BadRequest = 400,
+  Unauthorized = 401,
+  NotFound = 404,
+  Conflict = 409,
 }
 
 export const MAX_REVIEWS_COUNT = 10;
@@ -147,3 +146,10 @@ export const PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[0-9]).+$/i;
 
 export const MAP_TILE_LAYER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const MAP_COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
+export const APARTMENT_TYPES: Record<string, string> = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel',
+};

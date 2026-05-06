@@ -1,4 +1,4 @@
-import { store } from '../store';
+import {store} from '../store';
 import {AuthorizationStatus, SortType} from '../const';
 import {Offer, FullOffer} from './offer';
 import {Review} from './review';
